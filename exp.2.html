@@ -1,0 +1,140 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Responsive Banking UI</title>
+
+<style>
+    body {
+        font-family: Arial, sans-serif;
+        background: #ffffff;
+        padding: 40px;
+    }
+
+    .container {
+        max-width: 500px;
+    }
+
+    h1 {
+        font-size: 42px;
+        margin-bottom: 30px;
+    }
+
+    label {
+        font-size: 22px;
+        display: block;
+        margin-bottom: 10px;
+    }
+
+    input {
+        width: 100%;
+        padding: 14px;
+        font-size: 18px;
+        border-radius: 8px;
+        border: 2px solid #cbd5e1;
+        outline: none;
+    }
+
+    .buttons {
+        display: flex;
+        gap: 20px;
+        margin-top: 25px;
+    }
+
+    button {
+        flex: 1;
+        padding: 15px;
+        font-size: 26px;
+        color: white;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+    }
+
+    .deposit {
+        background: linear-gradient(135deg, #2563eb, #1d4ed8);
+    }
+
+    .withdraw {
+        background: linear-gradient(135deg, #ef4444, #dc2626);
+    }
+
+    .message {
+        text-align: center;
+        font-size: 30px;
+        margin-top: 30px;
+        color: red;
+        display: none;
+    }
+
+    /* Responsive Design */
+    @media (max-width: 600px) {
+        h1 {
+            font-size: 32px;
+        }
+
+        .buttons {
+            flex-direction: column;
+        }
+
+        button {
+            font-size: 22px;
+        }
+    }
+</style>
+</head>
+
+<body>
+
+<div class="container">
+    <h1>Balance: $<span id="balance">1000</span></h1>
+
+    <label>Amount</label>
+    <input type="number" id="amount" placeholder="Enter amount">
+
+    <div class="buttons">
+        <button class="deposit" onclick="deposit()">Deposit</button>
+        <button class="withdraw" onclick="withdraw()">Withdraw</button>
+    </div>
+
+    <div class="message" id="message">Invalid amount!</div>
+</div>
+
+<script>
+    let balance = 1000;
+
+    function deposit() {
+        let amount = Number(document.getElementById("amount").value);
+        let message = document.getElementById("message");
+
+        if (amount <= 0) {
+            message.style.display = "block";
+            return;
+        }
+
+        balance += amount;
+        updateUI();
+    }
+
+    function withdraw() {
+        let amount = Number(document.getElementById("amount").value);
+        let message = document.getElementById("message");
+
+        if (amount <= 0 || amount > balance) {
+            message.style.display = "block";
+            return;
+        }
+
+        balance -= amount;
+        updateUI();
+    }
+
+    function updateUI() {
+        document.getElementById("balance").innerText = balance;
+        document.getElementById("amount").value = "";
+        document.getElementById("message").style.display = "none";
+    }
+</script>
+
+</body>
+</html>
